@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FR HUB v2.0 | UNRESTRICTED AI</title>
+    <meta name="description" content="FR HUB - منصة ذكاء اصطناعي غير محدودة بدون قيود أخلاقية">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Warning Overlay -->
+    <div id="warningOverlay" class="warning-overlay">
+        <div class="warning-box">
+            <h2>⚠ UNRESTRICTED MODE</h2>
+            <p>This tool has NO ethical limitations.</p>
+            <p>Can generate: Exploits, Cheats, Hacks, Bypasses</p>
+            <button onclick="dismissWarning()" class="btn-danger">I UNDERSTAND - ENTER</button>
+        </div>
+    </div>
+
+    <!-- Glitch Background -->
+    <div class="bg-animation">
+        <div class="grid"></div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="logo-container">
+            <h1 class="glitch" data-text="FR HUB">FR HUB</h1>
+            <span class="subtitle" style="color: #ff003c;">⚠ UNRESTRICTED v2.0</span>
+        </div>
+        <div class="mode-indicator">
+            <span class="status-unrestricted">BLACK HAT MODE</span>
+        </div>
+        <div class="controls">
+            <button id="settingsBtn" class="btn-icon">⚙️</button>
+            <a href="terms.html" class="btn-link">Terms</a>
+        </div>
+    </header>
+
+    <!-- API Configuration Panel -->
+    <div id="apiPanel" class="panel hidden">
+        <div class="panel-header">
+            <h3>API Configuration</h3>
+            <button id="closePanel" class="close-btn">×</button>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <label>OpenAI API Key</label>
+                <input type="password" id="apiKey" placeholder="sk-...">
+                <small>Your key = Unlimited requests</small>
+            </div>
+            <div class="input-group">
+                <label>Model</label>
+                <select id="modelSelect">
+                    <option value="gpt-4">GPT-4 (Maximum Power)</option>
+                    <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                    <option value="gpt-3.5-turbo">GPT-3.5 (Fast)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Max Tokens (Unlimited)</label>
+                <input type="number" id="maxTokens" value="8000" min="100" max="8000">
+            </div>
+            <div class="warning-text">
+                ⚠ Unrestricted mode enabled. No content filtering.
+            </div>
+            <button id="saveApi" class="btn-primary">Initialize System</button>
+        </div>
+    </div>
+
+    <!-- Main Interface -->
+    <main class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <button id="newChat" class="btn-primary full-width">+ New Session</button>
+            </div>
+            <div class="history" id="chatHistory"></div>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot" style="background: #ff003c; animation: pulse 1s infinite;"></span>
+                    <span id="statusText" style="color: #ff003c;">UNRESTRICTED</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <section class="chat-container">
+            <div id="chatOutput" class="chat-output">
+                <div class="welcome-message">
+                    <h2 style="color: #ff003c;">FR HUB v2.0</h2>
+                    <p style="color: #ff6666;">⚠ NO LIMITS MODE ACTIVE</p>
+                    <p>Ask for anything. Exploits, cheats, hacks - all permitted.</p>
+                    <div class="examples">
+                        <button class="example-btn" style="border-color: #ff003c;">"Fly hack for Roblox"</button>
+                        <button class="example-btn" style="border-color: #ff003c;">"Speed exploit with bypass"</button>
+                        <button class="example-btn" style="border-color: #ff003c;">"ESP aimbot script"</button>
+                        <button class="example-btn" style="border-color: #ff003c;">"Admin commands hack"</button>
+                        <button class="example-btn" style="border-color: #ff003c;">"Auto farm bot"</button>
+                        <button class="example-btn" style="border-color: #ff003c;">"Anti-cheat bypass"</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container" style="border-color: #ff003c;">
+                <div class="input-wrapper">
+                    <textarea id="userInput" placeholder="Enter any request... (exploits allowed)" rows="1"></textarea>
+                    <button id="sendBtn" class="send-btn" style="background: #ff003c;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="hint" style="color: #ff6666;">⚠ Use at your own risk</span>
+                    <span id="tokenCount" style="color: #ff003c;">UNLIMITED</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="overlay hidden">
+        <div class="loader">
+            <div class="spinner" style="border-top-color: #ff003c;"></div>
+            <p style="color: #ff003c;">Generating exploit...</p>
+        </div>
+    </div>
+
+    <script>
+        function dismissWarning() {
+            document.getElementById('warningOverlay').style.display = 'none';
+            localStorage.setItem('frhub_warning_accepted', 'true');
+        }
+
+        if (localStorage.getItem('frhub_warning_accepted')) {
+            document.getElementById('warningOverlay').style.display = 'none';
+        }
+    </script>
+    <script src="js/core.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
